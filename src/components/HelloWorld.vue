@@ -8,7 +8,7 @@
             <div :class="">我是红色的</div>
         </div>
 
-        <button @click="fun1">点击我</button>
+        <button @click="http">点击我</button>
 
         <ul>
             <li v-for="item in fruits" :class="{eated: item.eated}" @click="eated(item)">
@@ -34,8 +34,12 @@
       }
     },
     methods: {
-      fun1: function () {
-        console.log(this.msg)
+      http: function () {
+        this.$http.get('http://api-local.chenyu.com:81').then((response) => {
+          console.log(response)
+        }, (response) => {
+          console.log(response)
+        })
       },
       eated: function (item) {
         console.log(item)
