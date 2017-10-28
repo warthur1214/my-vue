@@ -28,10 +28,7 @@
         msg: '我的第一个vue项目',
         msgHtml: '<p>这是一个段落</p>',
         hello: ['你好呀', '我不好'],
-        fruits: [
-          {key: 'apple', eated: true},
-          {key: 'banana', eated: false}
-        ],
+        fruits: [],
         link: 'http://www.baidu.com',
         initItem: ''
       }
@@ -48,15 +45,15 @@
         console.log(this.initItem)
         this.fruits.push({key: this.initItem, eated: false})
         this.initItem = ''
+        localStorage.setItem('vue_todo_list', JSON.stringify(this.fruits))
       }
     },
     watch: {
       msg: function (val, oldVal) {
         console.log(val, oldVal)
       },
-      fruits: function (val, oldVal) {
+      fruits: function (val) {
         console.log(val.length)
-        console.log(oldVal.length)
       }
     }
   })
