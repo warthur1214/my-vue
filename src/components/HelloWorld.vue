@@ -1,6 +1,7 @@
 <template>
     <div class="hello">
-        <h1>{{ msg }}</h1>
+        <h4>{{ msg }}</h4>
+        <h4>{{reverse}}</h4>
         <div id="desc">
             <a v-bind:href="link">百度一下</a>
             <p v-html="msgHtml"></p>
@@ -8,8 +9,16 @@
             <div :class="">我是红色的</div>
         </div>
 
-        <button @click="http">点击我</button>
+        <div>
+            <p style="float: right;">{{body.key}}</p>
+            <button @click="chenyu">点击我</button>
+        </div>
 
+        <div>
+            <p style="float: right;">{{reverseMsg}}</p>
+            <button @click="reverseFun">翻转</button>
+        </div>
+        <p>日期：{{now}}</p>
         <ul>
             <li v-for="item in fruits" :class="{eated: item.eated}" @click="eated(item)">
                 <p>{{item.key}}</p>
@@ -26,19 +35,30 @@
     data () {
       return {
         msg: '我的第一个vue项目',
+        reverseMsg: '我的第一个vue项目',
         msgHtml: '<p>这是一个段落</p>',
         hello: ['你好呀', '我不好'],
         fruits: [],
         link: 'http://www.baidu.com',
-        initItem: ''
+        initItem: '',
+        body: {}
+      }
+    },
+    computed: {
+      reverse: function () {
+        return this.msg.split('').reverse().join('')
+      },
+      now: function () {
+        return parseInt(Date.now() / 1000)
       }
     },
     methods: {
-      http: function () {
+      reverseFun: function () {
+        return this.reverseMsg.split('').reverse().join('')
+      },
+      chenyu: function () {
         this.$http.get('http://api-local.chenyu.com:81').then((response) => {
-          console.log(response)
-        }, (response) => {
-          console.log(response)
+          this.body = response.body
         })
       },
       eated: function (item) {
@@ -82,6 +102,7 @@
     a {
         color: #42b983;
     }
+
     .eated {
         background-color: blue;
     }
